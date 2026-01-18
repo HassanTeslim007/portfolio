@@ -12,6 +12,7 @@ class Project {
   final List<String> features;
   final String role;
   final bool isAiAccelerated;
+  final bool isOpenSource;
 
   Project({
     required this.title,
@@ -25,5 +26,6 @@ class Project {
     this.features = const [],
     this.role = 'Lead Developer',
     this.isAiAccelerated = false,
+    this.isOpenSource = false,
   });
 }

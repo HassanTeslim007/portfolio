@@ -67,44 +67,37 @@ class _ProjectCardState extends State<ProjectCard> {
                           fit: BoxFit.contain,
                         ),
                       ),
-                      if (widget.project.isAiAccelerated)
-                        Positioned(
-                          top: 12,
-                          right: 12,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppTheme.accent.withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: AppTheme.accent.withValues(alpha: 0.3),
+                      Positioned(
+                        top: 12,
+                        right: 12,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            if (widget.project.isAiAccelerated)
+                              _buildBadge(
+                                    Icons.bolt,
+                                    'AI-OPTIMIZED',
+                                    AppTheme.accent,
+                                  )
+                                  .animate()
+                                  .fadeIn(delay: 600.ms)
+                                  .slideX(begin: 0.5),
+                            if (widget.project.isOpenSource)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child:
+                                    _buildBadge(
+                                          Icons.hub_outlined,
+                                          'OPEN SOURCE',
+                                          Colors.blueAccent,
+                                        )
+                                        .animate()
+                                        .fadeIn(delay: 800.ms)
+                                        .slideX(begin: 0.5),
                               ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.bolt,
-                                  color: AppTheme.accent,
-                                  size: 14,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  'AI-OPTIMIZED',
-                                  style: TextStyle(
-                                    color: AppTheme.accent,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ).animate().fadeIn(delay: 600.ms).slideX(begin: 0.5),
+                          ],
                         ),
+                      ),
                     ],
                   ),
                 ),
@@ -153,5 +146,32 @@ class _ProjectCardState extends State<ProjectCard> {
         ),
       ),
     ).animate().fadeIn(duration: 500.ms).scale(begin: const Offset(0.9, 0.9));
+  }
+
+  Widget _buildBadge(IconData icon, String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color, size: 14),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.0,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

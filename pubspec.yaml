@@ -29,6 +29,7 @@ flutter:
     - assets/reisty/
     - assets/leisure_trove/
     - assets/speed_reader/
+    - assets/projects/
     - assets/chops/
     - assets/portfolio/
 
