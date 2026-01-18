@@ -22,7 +22,9 @@ class HeroSection extends StatelessWidget {
               width: 400,
               height: 400,
               decoration: BoxDecoration(
-                color: AppTheme.accent.withValues(alpha: 0.05),
+                color: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.05),
                 shape: BoxShape.circle,
               ),
             ),

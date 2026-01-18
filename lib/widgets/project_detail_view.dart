@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/project_model.dart';
-import '../theme.dart';
 
 class ProjectDetailView extends StatelessWidget {
   final Project project;
@@ -25,13 +24,13 @@ class ProjectDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppTheme.background,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            AppTheme.background,
+            Theme.of(context).scaffoldBackgroundColor,
             project.baseColor.withValues(alpha: 0.1),
           ],
         ),
@@ -43,7 +42,7 @@ class ProjectDetailView extends StatelessWidget {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: Colors.white24,
+              color: Theme.of(context).dividerColor,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -150,7 +149,7 @@ class ProjectDetailView extends StatelessWidget {
           height: 64,
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: AppTheme.surface,
+            color: Theme.of(context).cardTheme.color,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: project.baseColor.withValues(alpha: 0.3)),
           ),
@@ -176,7 +175,7 @@ class ProjectDetailView extends StatelessWidget {
         ),
         IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.close, color: Colors.white70),
+          icon: Icon(Icons.close, color: Theme.of(context).iconTheme.color),
         ),
       ],
     );
@@ -221,10 +220,15 @@ class _FanGallery extends StatelessWidget {
                 height: 380,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.white24, width: 2),
+                  border: Border.all(
+                    color: Theme.of(
+                      context,
+                    ).dividerColor.withValues(alpha: 0.1),
+                    width: 2,
+                  ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.5),
+                      color: Colors.black.withValues(alpha: 0.2),
                       blurRadius: 20,
                       spreadRadius: -10,
                       offset: const Offset(0, 10),
@@ -259,16 +263,15 @@ class _InfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyLarge!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _SectionLabel(title: title, color: color),
         const SizedBox(height: 16),
         if (content != null)
-          Text(
-            content!,
-            style: const TextStyle(fontSize: 18, color: Colors.white),
-          ),
+          Text(content!, style: textStyle.copyWith(fontSize: 18)),
         if (items != null)
           ...items!.map(
             (item) => Padding(
@@ -277,10 +280,7 @@ class _InfoSection extends StatelessWidget {
                 children: [
                   Icon(Icons.check_circle_outline, color: color, size: 18),
                   const SizedBox(width: 12),
-                  Text(
-                    item,
-                    style: const TextStyle(fontSize: 16, color: Colors.white),
-                  ),
+                  Text(item, style: textStyle.copyWith(fontSize: 16)),
                 ],
               ),
             ),
@@ -356,11 +356,12 @@ class _SectionLabel extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 12,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontWeight: FontWeight.bold,
             letterSpacing: 2.0,
-            color: Colors.white38,
+            color: Theme.of(
+              context,
+            ).textTheme.bodyLarge!.color!.withValues(alpha: 0.5),
           ),
         ),
       ],

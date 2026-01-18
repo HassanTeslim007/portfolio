@@ -7,10 +7,10 @@ class AppTheme {
   static const Color textPrimary = Colors.white;
   static const Color textSecondary = Colors.white70;
 
-  static const Color lightBackground = Color(0xFFF5F5F5);
+  static const Color lightBackground = Color(0xFFFAFAFA);
   static const Color lightSurface = Colors.white;
-  static const Color lightTextPrimary = Color(0xFF1A1A1A);
-  static const Color lightTextSecondary = Colors.black54;
+  static const Color lightTextPrimary = Color(0xFF121212);
+  static const Color lightTextSecondary = Color(0xFF424242);
 
   static ThemeData darkTheme = _buildTheme(Brightness.dark);
   static ThemeData lightTheme = _buildTheme(Brightness.light);

@@ -29,10 +29,12 @@ class _ProjectCardState extends State<ProjectCard> {
             duration: 300.ms,
             width: 350,
             decoration: BoxDecoration(
-              color: AppTheme.surface,
+              color: Theme.of(context).cardTheme.color,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: _isHovered ? widget.project.baseColor : Colors.white10,
+                color: _isHovered
+                    ? widget.project.baseColor
+                    : Theme.of(context).dividerColor.withValues(alpha: 0.1),
                 width: 2,
               ),
               boxShadow: _isHovered
@@ -43,7 +45,13 @@ class _ProjectCardState extends State<ProjectCard> {
                         spreadRadius: 5,
                       ),
                     ]
-                  : [],
+                  : [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.03),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

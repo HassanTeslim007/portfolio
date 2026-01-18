@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../theme.dart';
 
 class SkillsSection extends StatelessWidget {
   const SkillsSection({super.key});
@@ -44,7 +43,6 @@ class SkillsSection extends StatelessWidget {
           const SizedBox(height: 16),
           const Text(
             'Computer Scientist bridging the gap between deep foundations and modern mobile experiences.',
-            style: TextStyle(color: Colors.white70),
           ).animate().fadeIn(delay: 200.ms),
           const SizedBox(height: 60),
 
@@ -105,7 +103,7 @@ class SkillsSection extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
-            color: AppTheme.accent,
+            color: Theme.of(context).colorScheme.primary,
             letterSpacing: 2.0,
           ),
         ).animate().fadeIn(),
@@ -119,16 +117,18 @@ class SkillsSection extends StatelessWidget {
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               decoration: BoxDecoration(
-                color: AppTheme.surface,
+                color: Theme.of(context).cardTheme.color,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white10),
+                border: Border.all(
+                  color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
+                ),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     skill['icon'] as IconData,
-                    color: AppTheme.accent,
+                    color: Theme.of(context).colorScheme.primary,
                     size: 20,
                   ),
                   const SizedBox(width: 10),

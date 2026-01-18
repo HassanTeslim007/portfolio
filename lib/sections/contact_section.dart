@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../theme.dart';
 
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
@@ -14,7 +13,7 @@ class ContactSection extends StatelessWidget {
         vertical: 100,
         horizontal: isMobile ? 24 : 100,
       ),
-      color: AppTheme.surface.withValues(alpha: 0.3),
+      color: Theme.of(context).cardTheme.color!.withValues(alpha: 0.3),
       child: Column(
         children: [
           Text(
@@ -24,7 +23,6 @@ class ContactSection extends StatelessWidget {
           const SizedBox(height: 16),
           const Text(
             'Have a project in mind? Let’s talk.',
-            style: TextStyle(color: Colors.white70),
           ).animate().fadeIn(delay: 200.ms),
           const SizedBox(height: 60),
           ConstrainedBox(
@@ -32,17 +30,35 @@ class ContactSection extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(40),
               decoration: BoxDecoration(
-                color: AppTheme.surface,
+                color: Theme.of(context).cardTheme.color,
                 borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: Colors.white10),
+                border: Border.all(
+                  color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
               ),
               child: Column(
                 children: [
-                  _buildTextField(label: 'Name', icon: Icons.person_outline),
-                  const SizedBox(height: 24),
-                  _buildTextField(label: 'Email', icon: Icons.email_outlined),
+                  _buildTextField(
+                    context,
+                    label: 'Name',
+                    icon: Icons.person_outline,
+                  ),
                   const SizedBox(height: 24),
                   _buildTextField(
+                    context,
+                    label: 'Email',
+                    icon: Icons.email_outlined,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildTextField(
+                    context,
                     label: 'Message',
                     icon: Icons.message_outlined,
                     maxLines: 5,
@@ -64,29 +80,41 @@ class ContactSection extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField({
+  Widget _buildTextField(
+    BuildContext context, {
     required String label,
     required IconData icon,
     int maxLines = 1,
   }) {
+    final textStyle = Theme.of(context).textTheme.bodyMedium!;
+
     return TextFormField(
       maxLines: maxLines,
+      style: textStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, color: AppTheme.accent),
+        labelStyle: textStyle.copyWith(color: Theme.of(context).hintColor),
+        prefixIcon: Icon(icon, color: Theme.of(context).colorScheme.primary),
         filled: true,
-        fillColor: AppTheme.background.withValues(alpha: 0.5),
+        fillColor: Theme.of(
+          context,
+        ).scaffoldBackgroundColor.withValues(alpha: 0.5),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.white10),
+          borderSide: BorderSide(
+            color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppTheme.accent, width: 2),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 2,
+          ),
         ),
       ),
     );
