@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../sections/hero_section.dart';
 import '../sections/projects_section.dart';
 import '../sections/skills_section.dart';
 import '../sections/contact_section.dart';
+import '../widgets/theme_toggle.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,6 +36,14 @@ class _HomePageState extends State<HomePage> {
           ),
 
           // Custom Navigation Bar could go here (Floating)
+          Positioned(
+            top: 40,
+            right: 40,
+            child: const ThemeToggle()
+                .animate()
+                .fadeIn(delay: 1.seconds)
+                .slideY(begin: -0.2),
+          ),
         ],
       ),
     );
