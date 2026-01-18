@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../models/project_model.dart';
 import '../theme.dart';
 
@@ -12,6 +13,13 @@ class ProjectDetailView extends StatelessWidget {
     required this.project,
     this.scrollController,
   });
+
+  Future<void> _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +101,36 @@ class ProjectDetailView extends StatelessWidget {
                       ),
                     ],
                   ),
+
+                  if (project.url != null) ...[
+                    const SizedBox(height: 60),
+                    Center(
+                      child: OutlinedButton.icon(
+                        onPressed: () => _launchUrl(project.url!),
+                        icon: const Icon(Icons.open_in_new),
+                        label: Text(
+                          project.isOpenSource
+                              ? 'VIEW ON GITHUB'
+                              : 'VIEW PROJECT',
+                          style: const TextStyle(
+                            letterSpacing: 1.2,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: project.baseColor,
+                          side: BorderSide(color: project.baseColor),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 32,
+                            vertical: 20,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ).animate().fadeIn(delay: 800.ms).slideY(begin: 0.2),
+                    ),
+                  ],
 
                   const SizedBox(height: 80),
                 ],
