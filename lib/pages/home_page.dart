@@ -15,6 +15,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
+  final GlobalKey _projectsKey = GlobalKey();
+
+  void _scrollToProjects() {
+    final context = _projectsKey.currentContext;
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +37,12 @@ class _HomePageState extends State<HomePage> {
           SingleChildScrollView(
             controller: _scrollController,
             child: Column(
-              children: const [
-                HeroSection(),
-                ProjectsSection(),
-                SkillsSection(),
-                ContactSection(),
-                SizedBox(height: 100),
+              children: [
+                HeroSection(onViewProjects: _scrollToProjects),
+                ProjectsSection(key: _projectsKey),
+                const SkillsSection(),
+                const ContactSection(),
+                const SizedBox(height: 100),
               ],
             ),
           ),

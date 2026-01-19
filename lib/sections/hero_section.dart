@@ -3,7 +3,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../theme.dart';
 
 class HeroSection extends StatelessWidget {
-  const HeroSection({super.key});
+  final VoidCallback? onViewProjects;
+
+  const HeroSection({super.key, this.onViewProjects});
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +89,7 @@ class HeroSection extends StatelessWidget {
       ).animate().fadeIn(delay: 400.ms, duration: 800.ms).slideY(begin: 0.2),
       const SizedBox(height: 40),
       ElevatedButton(
-        onPressed: () {},
+        onPressed: onViewProjects,
         child: const Text('VIEW PROJECTS'),
       ).animate().fadeIn(delay: 600.ms).scale(),
     ];
